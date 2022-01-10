@@ -100,7 +100,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 2
 
 # 设置登录和注册成功后重定向的页面，默认是/accounts/profile/
-LOGIN_REDIRECT_URL = "/accounts/profile/"
+LOGIN_REDIRECT_URL = "/"
 
 # Email setting
 # 注册中邮件验证方法:“强制（mandatory）”,“可选（optional）【默认】”或“否（none）”之一。
@@ -274,7 +274,7 @@ SITE_DESCRIPTION = os.getenv('IZONE_SITE_DESCRIPTION')
 SITE_KEYWORDS = os.getenv('IZONE_SITE_KEYWORDS')
 
 # GEOIP2数据库文件地址
-GEOIP_DATABASE_PATH = os.path.join(BASE_DIR, 'GeoLite2-City.mmdb')
+GEOIP_DATABASE_PATH = os.path.join(BASE_DIR, 'utils/GeoLite2-City.mmdb')
 # 关闭匿名用户
 ANONYMOUS_USER_NAME = None
 

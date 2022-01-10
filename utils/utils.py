@@ -4,9 +4,9 @@ import geoip2.database
 import geoip2.errors
 from user_agents import parse
 
-from izone.settings import GEOIP_DATABASE_PATH
-
 cities = ['北京', '上海', '天津', '重庆']
+
+file_path = os.path.abspath(os.path.dirname(__file__))
 
 
 def get_database_setting(env):
@@ -39,7 +39,7 @@ def getLocation(ip):
     """
     location = ''
     try:
-        reader = geoip2.database.Reader(GEOIP_DATABASE_PATH)
+        reader = geoip2.database.Reader(os.path.join(file_path, 'GeoLite2-City.mmdb'))
         response = reader.city(ip)
         try:
             subdivisions = response.subdivisions.most_specific.names['zh-CN']
@@ -96,3 +96,5 @@ def isEmoji(content):
         return True
     else:
         return False
+
+
