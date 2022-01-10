@@ -79,7 +79,7 @@ INSTALLED_APPS = [
     'blog',  # 博客应用
     'tool',  # 工具
     'comment',  # 评论
-    'django_tctip',  # 侧边打赏栏
+    'django_tctip.apps.DjangoTctipConfig',  # 侧边打赏栏
 
 ]
 
