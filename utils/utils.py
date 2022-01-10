@@ -66,3 +66,21 @@ def get_ip_addr_from_meta(request):
     else:
         ip_addr = request.META.get('REMOTE_ADDR')
     return ip_addr
+
+
+def isEmoji(content):
+    """
+    判断内容是否是emoji
+    """
+    if not content:
+        return False
+    if u"\U0001F600" <= content <= u"\U0001F64F":
+        return True
+    elif u"\U0001F300" <= content <= u"\U0001F5FF":
+        return True
+    elif u"\U0001F680" <= content <= u"\U0001F6FF":
+        return True
+    elif u"\U0001F1E0" <= content <= u"\U0001F1FF":
+        return True
+    else:
+        return False

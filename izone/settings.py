@@ -228,7 +228,7 @@ DATABASES = {
         'PASSWORD': database['password'],  # 数据库的密码
         'HOST': database['host'],
         'PORT': os.getenv('IZONE_MYSQL_PORT'),
-        'OPTIONS': {'charset': 'utf8'}
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 
