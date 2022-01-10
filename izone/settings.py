@@ -37,9 +37,9 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = os.getenv('IZONE_SECRET_KEY')
 
 # 是否开启[在线工具]应用
-TOOL_FLAG = os.getenv('IZONE_TOOL_FLAG', 'True').upper() == 'TRUE'
+TOOL_FLAG = os.getenv('IZONE_TOOL_FLAG', False)
 # 是否开启[API]应用
-API_FLAG = os.getenv('IZONE_API_FLAG', 'False').upper() == 'TRUE'
+API_FLAG = os.getenv('IZONE_API_FLAG', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('IZONE_DEBUG', 'True').upper() == 'TRUE'
