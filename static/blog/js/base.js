@@ -85,3 +85,16 @@ $("#theme-img").click(function () {
         addDarkTheme();
     }
 })
+
+/*禁止键盘操作*/
+document.onkeydown = function (event) {
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+    if ((e.keyCode === 123) || (e.ctrlKey) || (e.ctrlKey) && (e.keyCode === 85)) {
+        return false;
+    }
+};
+
+//禁止右键菜单
+window.oncontextmenu = function () {
+    return false;
+};
