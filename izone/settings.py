@@ -26,7 +26,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 project_folder = os.path.expanduser(BASE_DIR)
 load_dotenv(os.path.join(project_folder, '.env'))
 
-
 # 添加 apps 目录
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
@@ -42,7 +41,7 @@ TOOL_FLAG = os.getenv('IZONE_TOOL_FLAG', False)
 API_FLAG = os.getenv('IZONE_API_FLAG', False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('IZONE_DEBUG', 'True').upper() == 'TRUE'
+DEBUG = os.getenv('IZONE_DEBUG', os.getenv('ENVIRONMENT') == 'development')
 
 ALLOWED_HOSTS = ['*']
 

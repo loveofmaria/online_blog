@@ -4,7 +4,8 @@ import geoip2.database
 import geoip2.errors
 from user_agents import parse
 
-from izone import settings
+# from izone.settings import GEOIP_DATABASE_PATH
+cities = ['北京', '上海', '天津', '重庆']
 
 
 def get_database_setting(env):
@@ -37,11 +38,21 @@ def getLocation(ip):
     """
     location = ''
     try:
-        reader = geoip2.database.Reader(settings.GEOIP_DATABASE_PATH)
+        reader = geoip2.database.Reader('GeoLite2-City.mmdb')
         response = reader.city(ip)
-        subdivisions = response.subdivisions.most_specific.names['zh-CN']
-        city = response.city.names['zh-CN']
-        location = subdivisions + city
+        try:
+            subdivisions = response.subdivisions.most_specific.names['zh-CN']
+        except KeyError:
+            subdivisions = ''
+        country = response.country.names['zh-CN']
+        try:
+            city = response.city.names['zh-CN']
+            if city in cities:
+                city = ''
+        except KeyError:
+            city = ''
+
+        location = country + subdivisions + city
     except geoip2.errors.AddressNotFoundError:
         pass
     return location

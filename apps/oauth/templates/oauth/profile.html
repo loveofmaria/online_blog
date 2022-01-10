@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block top-file %}
-    <link href="{% static 'blog/css/account.css' %}?v=20171229.01966" rel="stylesheet">
+    <link href="{% static 'blog/css/account.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block head_title %}个人资料{% endblock %}
@@ -36,15 +36,19 @@
                             {% for emailaddress in user.emailaddress_set.all %}
                                 {% if emailaddress.primary or user.emailaddress_set.count == 1 %}
                                     <li class="list-group-item ml-5 border-0" title="提示：已验证邮箱的用户有更多特权！">
-                                        <span class="font-weight-bold"><i class="fa fa-mail-forward"></i></span>
+                                        <span class="font-weight-bold"><i class="fa fa-envelope"></i></span>
                                         <span>{{ emailaddress.email }}</span>
-                                        {% if emailaddress.verified %}已验证{% else %}未验证{% endif %}
+                                        {% if emailaddress.verified %}已验证{% else %}<span class="text-danger"> 未验证</span>                                            {% endif %}
                                     </li>
                                 {% endif %}
                             {% endfor %}
                             <li class="list-group-item ml-5 border-0">
                                 <span class="font-weight-bold"><i class="fa fa-link"></i></span>
-                                <span>{{ user.link }}</span>
+                                {% if user.link %}
+                                    <span>{{ user.link }}</span>
+                                {% else %}
+                                    <span>没有设置个人主页</span>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
