@@ -41,21 +41,21 @@
                 {% url 'tool:total' as tool_url %}
                 <div class="col">
                     <a href="{{ tool_url }}" title="在线工具箱">
-                                                <img style="max-width:40px" alt="在线工具箱" src="{% static 'blog/img/tools.png' %}">
-{#                        <img style="max-width:40px" alt="在线工具箱"#}
-{#                             src="https://ae01.alicdn.com/kf/H5ecd4e26d66e46f7b2d17cbea4e5870fC.jpg">#}
+                        <img style="max-width:40px" alt="在线工具箱" src="{% static 'blog/img/tools.png' %}">
+                        {#                        <img style="max-width:40px" alt="在线工具箱"#}
+                        {#                             src="https://ae01.alicdn.com/kf/H5ecd4e26d66e46f7b2d17cbea4e5870fC.jpg">#}
                         <p class="mt-2">工具箱</p>
                     </a>
                 </div>
             {% endif %}
             <div class="col">
-                <a href="{% url 'blog:timeline' %}"  title="查看网站建站历程">
+                <a href="{% url 'blog:timeline' %}" title="查看网站建站历程">
                     <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog/img/blog.png' %}">
                     <p class="mt-2">Timeline</p>
                 </a>
             </div>
             <div class="col">
-                <a href="{% url 'rss' %}"  title="订阅博客">
+                <a href="{% url 'rss' %}" title="订阅博客">
                     <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'blog/img/rss.png' %}">
                     <p class="mt-2">RSS订阅</p>
                 </a>
@@ -63,6 +63,8 @@
         </div>
     </div>
 </div>
+{# 访客信息 #}
+{% show_right_click_info %}
 <!--文章分类-->
 <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="category-card">
     <div class="card-header bg-white px-0">
@@ -106,7 +108,7 @@
                 {% for friend in friends %}
                     <div class="w-50 float-left text-center mb-2">
                         <div class="mx-2">
-                            <a href="{{ friend.link }}" title="{{ friend.description }}" >
+                            <a href="{{ friend.link }}" title="{{ friend.description }}">
                                 {{ friend.name }}</a>
                         </div>
                     </div>

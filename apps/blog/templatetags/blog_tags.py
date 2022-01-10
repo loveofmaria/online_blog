@@ -2,6 +2,8 @@
 from datetime import datetime
 
 from django import template
+
+from utils.utils import get_ip_addr_from_meta, getLocation, parse_user_agent
 from ..models import Article, Category, Tag, Carousel, FriendLink
 from django.db.models.aggregates import Count
 from django.utils.html import mark_safe
@@ -110,3 +112,22 @@ def get_friends():
 def now_hour():
     """返回当前时间的小时数"""
     return datetime.now().hour
+
+
+# 访客信息
+@register.inclusion_tag('blog/tags/_right_click_info.html', takes_context=True)
+def show_right_click_info(context):
+    request = context['request']
+    ip_addr = get_ip_addr_from_meta(request)
+    location = getLocation(ip_addr)
+    if location == '':
+        location = '局域网'
+    platform_info = parse_user_agent(request)[1]
+    browser_info = parse_user_agent(request)[2]
+
+    return {
+        'ip_addr': ip_addr,
+        'location': location,
+        'platform': platform_info,
+        'browser': browser_info,
+    }
