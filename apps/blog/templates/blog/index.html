@@ -14,7 +14,7 @@
 {% block base_content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 col-xl-8">
             {% include 'blog/tags/carousel.html' %}
             <div class="text-secondary font-weight-bold py-2 f-15 choice">
                 {% url 'blog:index' as base_index %}
@@ -27,7 +27,7 @@
             {% load_article_summary articles %}
             {% if is_paginated %}{% load_pages %}{% endif %}
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-xl-4">
             {% include 'blog/tags/base_right.html' %}
         </div>
     </div>
