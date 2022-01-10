@@ -47,7 +47,7 @@ class ArticleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.id:
             obj.author = request.user
-            obj.save()
+            obj.save(obj, form, change)
 
 
 @admin.register(Tag)
