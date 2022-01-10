@@ -227,7 +227,10 @@ DATABASES = {
         'PASSWORD': database['password'],  # 数据库的密码
         'HOST': database['host'],
         'PORT': os.getenv('IZONE_MYSQL_PORT'),
-        'OPTIONS': {'charset': 'utf8mb4'},
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
