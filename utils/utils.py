@@ -4,7 +4,8 @@ import geoip2.database
 import geoip2.errors
 from user_agents import parse
 
-# from izone.settings import GEOIP_DATABASE_PATH
+from izone.settings import GEOIP_DATABASE_PATH
+
 cities = ['北京', '上海', '天津', '重庆']
 
 
@@ -38,7 +39,7 @@ def getLocation(ip):
     """
     location = ''
     try:
-        reader = geoip2.database.Reader('GeoLite2-City.mmdb')
+        reader = geoip2.database.Reader(GEOIP_DATABASE_PATH)
         response = reader.city(ip)
         try:
             subdivisions = response.subdivisions.most_specific.names['zh-CN']
