@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block head_title %}用一篇散文来表达心情{% endblock %}
+{% block metas %}
+<meta name="description"
+      content="本网站是一个采用django+bootstrap4搭建的个人博客">
+<meta name="keywords" content="网站文抒页面,使用散文表达心情">
+{% endblock %}
+
+
+{% block base_content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8" style="line-height:2">
+            <div class="card rounded-0 border-0 p-3 f-16">{{ body|safe }}</div>
+        </div>
+        <div class="col-lg-4">
+            {% include 'blog/tags/base_right.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}
