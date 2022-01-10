@@ -11,6 +11,7 @@ django-haystack==2.8.1
 django-imagekit==4.0.2
 django-redis==4.10.0
 djangorestframework==3.10.3
+django-user-agents==0.4.0
 gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.8
@@ -35,3 +36,6 @@ user-agent==0.1.9
 webencodings==0.5.1
 Whoosh==2.7.4
 django-tctip>=1.4.0
+
+python-dotenv~=0.19.2
+geoip2~=4.5.0

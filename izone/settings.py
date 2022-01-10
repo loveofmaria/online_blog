@@ -13,13 +13,19 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import sys
 
+import dotenv
+
 from dotenv import load_dotenv
 
-# 导入配置文件.env中信息
-load_dotenv(verbose=True)
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from utils.utils import get_database_setting
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 导入配置文件.env中信息
+project_folder = os.path.expanduser(BASE_DIR)
+load_dotenv(os.path.join(project_folder, '.env'))
+
 
 # 添加 apps 目录
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -211,27 +217,25 @@ REST_FRAMEWORK = {
 }
 
 # 配置数据库
-MYSQL_HOST = os.getenv('IZONE_MYSQL_HOST')
-MYSQL_NAME = os.getenv('IZONE_MYSQL_NAME')
-MYSQL_USER = os.getenv('IZONE_MYSQL_USER')
-MYSQL_PASSWORD = os.getenv('IZONE_MYSQL_PASSWORD')
-MYSQL_PORT = os.getenv('IZONE_MYSQL_PORT')
+env = os.getenv('ENVIRONMENT')
+database = get_database_setting(env)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # 修改数据库为MySQL，并进行配置
-        'NAME': MYSQL_NAME,  # 数据库的名称
-        'USER': MYSQL_USER,  # 数据库的用户名
-        'PASSWORD': MYSQL_PASSWORD,  # 数据库的密码
-        'HOST': MYSQL_HOST,
-        'PORT': MYSQL_PORT,
+        'NAME': database['name'],  # 数据库的名称
+        'USER': database['user'],  # 数据库的用户名
+        'PASSWORD': database['password'],  # 数据库的密码
+        'HOST': database['host'],
+        'PORT': os.getenv('IZONE_MYSQL_PORT'),
         'OPTIONS': {'charset': 'utf8'}
     }
 }
 
 # 使用django-redis缓存页面，缓存配置如下：
-REDIS_HOST = os.getenv('IZONE_REDIS_HOST')
-REDIS_PORT = os.getenv('IZONE_REDIS_PORT')
+# pyanywhere上用不上
+# REDIS_HOST = os.getenv('IZONE_REDIS_HOST')
+# REDIS_PORT = os.getenv('IZONE_REDIS_PORT')
 
 CACHES = {
     "default": {
@@ -270,6 +274,11 @@ SITE_END_TITLE = os.getenv('IZONE_SITE_END_TITLE')
 SITE_DESCRIPTION = os.getenv('IZONE_SITE_DESCRIPTION')
 SITE_KEYWORDS = os.getenv('IZONE_SITE_KEYWORDS')
 
+# GEOIP2数据库文件地址
+GEOIP_DATABASE_PATH = os.path.join(BASE_DIR, 'GeoLite2-City.mmdb')
+# 关闭匿名用户
+ANONYMOUS_USER_NAME = None
+
 # 个性化设置，非必要信息
 # 个人 Github 地址
 MY_GITHUB = os.getenv('IZONE_GITHUB')
@@ -280,10 +289,10 @@ CNZZ_PROTOCOL = os.getenv('IZONE_CNZZ_PROTOCOL', '')
 # 站长推送
 MY_SITE_VERIFICATION = os.getenv('IZONE_SITE_VERIFICATION', '')
 # 使用 http 还是 https （sitemap 中的链接可以体现出来）
-PROTOCOL_HTTPS = os.getenv('IZONE_PROTOCOL_HTTPS', 'HTTP').lower()
+PROTOCOL_HTTPS = os.getenv('IZONE_PROTOCOL_HTTPS', 'HTTPS')
 # hao.tendcode.com
 HAO_CONSOLE = {
-    'flag': os.getenv('IZONE_HAO_FLAG', 'False').upper() == 'TRUE',
+    'flag': os.getenv('IZONE_HAO_FLAG', False),
     'name': os.getenv('IZONE_HAO_NAME', '微草导航'),
     'url': os.getenv('IZONE_HAO_URL', '#')
 }
