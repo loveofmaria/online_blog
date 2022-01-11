@@ -52,8 +52,10 @@ def getLocation(ip):
                 city = ''
         except KeyError:
             city = ''
-
-        location = country + subdivisions + city
+        if country == city:
+            location = country
+        else:
+            location = country + subdivisions + city
     except geoip2.errors.AddressNotFoundError:
         pass
     return location
@@ -98,3 +100,5 @@ def isEmoji(content):
         return False
 
 
+if __name__ == '__main__':
+    print(getLocation('155.69.203.4'))
