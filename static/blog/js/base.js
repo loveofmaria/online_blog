@@ -98,3 +98,8 @@ document.onkeydown = function (event) {
 window.oncontextmenu = function () {
     return false;
 };
+
+// 消息框自动消失
+window.setTimeout(function () {
+    $('[data-dismiss="alert"]').alert('close');
+}, 6000);

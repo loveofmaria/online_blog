@@ -45,9 +45,7 @@
 {% if messages %}
     <div class="container">
         {% for message in messages %}
-            <div class="text-center alert {% if message.tags %}alert-
-                {{ message.tags }}{% else %}alert-secondary{% endif %} alert-dismissible rounded-0 fade show"
-                 role="alert">
+            <div class="text-center alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-primary{% endif %} alert-dismissible rounded-0 fade show" role="alert">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -76,7 +74,7 @@
         headroom.init()
     });
 </script>
-<script src="{% static 'blog/js/base.js' %}?v=20210808.1"></script>
+<script src="{% static 'blog/js/base.js' %}"></script>
 {% if user.is_authenticated %}
     <script>
         var msgs = {% get_notifications_count user 'false' %};
