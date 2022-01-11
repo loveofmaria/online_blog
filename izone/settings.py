@@ -79,7 +79,6 @@ INSTALLED_APPS = [
     'tool',  # 工具
     'comment',  # 评论
     'django_tctip.apps.DjangoTctipConfig',  # 侧边打赏栏
-
 ]
 
 # 自定义用户model
@@ -194,6 +193,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # 媒体文件收集
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# mdeditor 上传配置
+
 
 # 统一分页设置
 BASE_PAGE_BY = 5
