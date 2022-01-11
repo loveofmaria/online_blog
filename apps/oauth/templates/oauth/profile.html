@@ -17,7 +17,7 @@
 {% block base_content %}
     <div class="container">
         <div class="row">
-            <div class="col-12 col-sm-8 col-md-6 offset-sm-2 offset-md-3 px-xl-5">
+            <div class="col-12 col-sm-12 col-md-10 offset-sm-2 offset-md-3 px-xl-5">
                 <div class="card rounded-0 px-3 px-lg-4">
                     <div class="card-header text-center bg-white py-2"><h3 class="my-1 text-info">个人资料</h3></div>
                     <div class="card-body">
@@ -26,24 +26,24 @@
                                 {% get_user_avatar_tag user %}
                             </li>
                             <li class="list-group-item ml-5 border-0">
-                                <span class="font-weight-bold"><i class="fa fa-user"></i></span>
+                                <span class="font-weight-bold">用户: </span>
                                 <span>{{ user.username }}</span>
                             </li>
                             <li class="list-group-item ml-5 border-0">
-                                <span class="font-weight-bold"><i class="fa fa-picture-o"></i></span>
+                                <span class="font-weight-bold">昵称: </span>
                                 <span>{{ user.nickname }}</span>
                             </li>
                             {% for emailaddress in user.emailaddress_set.all %}
                                 {% if emailaddress.primary or user.emailaddress_set.count == 1 %}
                                     <li class="list-group-item ml-5 border-0" title="提示：已验证邮箱的用户有更多特权！">
-                                        <span class="font-weight-bold"><i class="fa fa-envelope"></i></span>
+                                        <span class="font-weight-bold">邮箱: </span>
                                         <span>{{ emailaddress.email }}</span>
                                         {% if emailaddress.verified %}已验证{% else %}<span class="text-danger"> 未验证</span>                                            {% endif %}
                                     </li>
                                 {% endif %}
                             {% endfor %}
                             <li class="list-group-item ml-5 border-0">
-                                <span class="font-weight-bold"><i class="fa fa-link"></i></span>
+                                <span class="font-weight-bold">主页: </span>
                                 {% if user.link %}
                                     <span>{{ user.link }}</span>
                                 {% else %}
