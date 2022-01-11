@@ -39,7 +39,7 @@ def getLocation(ip):
     """
     location = ''
     try:
-        reader = geoip2.database.Reader(os.path.join(file_path, 'Country.mmdb'))
+        reader = geoip2.database.Reader(os.path.join(file_path, 'GeoLite2-City.mmdb'))
         response = reader.city(ip)
         try:
             subdivisions = response.subdivisions.most_specific.names['zh-CN']
