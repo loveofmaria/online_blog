@@ -28,8 +28,8 @@
                         {% if user_link_info.is_verified %}
                             {% if user_link_info.provider == 'GitHub' %}
                             <i class="fa fa-github" title="Github 绑定用户"></i>
-                            {% elif user_link_info.provider == 'Weibo' %}
-                            <i class="fa fa-weibo" title="Weibo 绑定用户"></i>
+                            {% elif user_link_info.provider == 'baidu' %}
+                            <i class="fa fa-baidu" title="baidu 绑定用户">baidu</i>
                             {% else %}
                             <i class="fa fa-envelope-o" title="邮箱认证用户"></i>
                             {% endif %}
@@ -70,8 +70,8 @@
                             {% if each_user_link_info.is_verified %}
                                 {% if each_user_link_info.provider == 'GitHub' %}
                                 <i class="fa fa-github" title="Github 绑定用户"></i>
-                                {% elif each_user_link_info.provider == 'Weibo' %}
-                                <i class="fa fa-weibo" title="Weibo 绑定用户"></i>
+                                {% elif each_user_link_info.provider == 'baidu' %}
+                                <i class="fa fa-baidu" title="baidu 绑定用户"></i>
                                 {% else %}
                                 <i class="fa fa-envelope-o" title="邮箱认证用户"></i>
                                 {% endif %}

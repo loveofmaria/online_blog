@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.baidu',
     'allauth.socialaccount.providers.github',
 
     'rest_framework',
@@ -96,6 +96,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # allauth需要的配置
+# allauth注册时的用户名长度最大值
+USERNAME_MIN_LENGTH = 32
 # 当出现"SocialApp matching query does not exist"这种报错的时候就需要更换这个ID
 SITE_ID = 2
 
@@ -272,7 +274,7 @@ DEFAULT_FROM_EMAIL = os.getenv('IZONE_DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
 # 网站默认设置和上下文信息
 SITE_LOGO_NAME = os.getenv('IZONE_LOGO_NAME')
-SITE_END_TITLE = os.getenv('IZONE_SITE_END_TITLE')
+SITE_END_TITLE = os.getenv('IZONE_SITE_END_TITLE', '')
 SITE_DESCRIPTION = os.getenv('IZONE_SITE_DESCRIPTION')
 SITE_KEYWORDS = os.getenv('IZONE_SITE_KEYWORDS')
 
