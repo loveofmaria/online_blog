@@ -14,7 +14,7 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ('views',)
 
     # 在查看修改的时候显示的属性，第一个字段带有<a>标签，所以最好放标题
-    list_display = ('id', 'title', 'create_date', 'update_date', 'is_top', 'visitable')
+    list_display = ('id', 'title', 'author', 'create_date', 'update_date', 'is_top', 'visitable')
 
     # 设置需要添加<a>标签的字段
     list_display_links = ('title',)
@@ -30,7 +30,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
     # 限制用户权限，只能看到自己编辑的文章
     def get_queryset(self, request):
-        qs = super(ArticleAdmin, self).get_queryset(request)
+        # qs = super(ArticleAdmin, self).get_queryset(request)
+        qs = Article.objects.all(visitable=False)
         if request.user.is_superuser:
             return qs
         return qs.filter(author=request.user)

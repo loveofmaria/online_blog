@@ -5,11 +5,23 @@ import markdown
 import re
 
 
-# Create your models here.
-
 class ArticleManager(models.Manager):
     def get_queryset(self):
-        return super(ArticleManager, self).get_queryset().filter(visitable=True)
+        """
+        该方法保持不变
+        """
+        return super(ArticleManager, self).get_queryset()
+
+    # 重写 all 方法，设置一个visitable属性，便于区分前后台对是否显示的文章别分开
+    def all(self, visitable=True):
+        """
+        默认只显示属性 visitable = True文章，即前台显示
+        在admin中，把visitable = False，那么后台就可以显示所有文章
+        """
+        if visitable:
+            return super(ArticleManager, self).all().filter(visitable=True)
+        else:
+            return super(ArticleManager, self).all()
 
 
 # 文章关键词，用来作为SEO中keywords
@@ -73,7 +85,7 @@ class Category(models.Model):
 # 文章
 class Article(models.Model):
     IMG_LINK = '/static/blog/img/summary.png'
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者', editable=False,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='作者',
                                on_delete=models.PROTECT)
     title = models.CharField(max_length=150, verbose_name='文章标题')
     summary = models.TextField('文章摘要', max_length=230, default='文章摘要等同于网页description内容，请务必填写...')

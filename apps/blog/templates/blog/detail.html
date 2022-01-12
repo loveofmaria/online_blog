@@ -37,16 +37,25 @@
                 </nav>
                 <div class="card rounded-0 border-0" id="article">
                     <div class="card-body px-2 px-md-3 pb-0">
-                        <h1 class="card-title text-center font-weight-bold text-info">{{ article.title }}</h1>
+                        <h1 id="title"
+                            class="card-title text-center font-weight-bold text-info">{{ article.title }}</h1>
                         <hr>
                         <div class="text-center f-13">
                         <span class="mx-2" data-toggle="tooltip" data-placement="bottom"
-                              title="最后编辑于{{ article.update_date|date:'Y年m月d日' }}">{{ article.create_date }}</span>
-                            <span class="mx-2">阅读 {{ article.views }}</span>
-                            <a class="mx-2 to-com" href="#comment-block">评论 {% get_comment_count article %}</a>
+                              title="最后编辑于{{ article.update_date|date:'Y年m月d日' }}"><i
+                                class="fa fa-calendar"></i> {{ article.create_date }}</span>
+                            <span class="mx-2"><i class="fa fa-eye"></i> {{ article.views }}</span>
+                            <a class="mx-2 to-com" href="#comment-block"><i
+                                    class="fa fa-comments"></i> {% get_comment_count article %}</a>
                         </div>
                         <div class="article-body mt-4 f-17" style="line-height:1.8">
                             {{ article.body|safe }}
+                            <hr>
+                            <button id="like" type="submit" class="btn-default btn-block"><i
+                                    class="fa fa-thumbs-up"></i>
+                                <span>点赞  </span><span id="likes"> {{ article.likes }}</span>
+                            </button>
+                            <br>
                             <blockquote class="p-1 f-14" style="border-left: 4px solid #dc3545;">
                                 <p class="m-1"><strong>版权声明：</strong>如无特殊说明，文章均为本站原创，转载请注明出处</p>
                                 <p class="m-1"><strong>本文链接：</strong>{{ site_url }}{{ article.get_absolute_url }}</p>
@@ -87,7 +96,7 @@
                                 </li>
                             </ul>
                         </nav>
-                        {% include 'blog/tags/reward.html' %}
+                        {% include 'blog/tags/reward.html' %}`
                     </div>
                 </div>
                 <div class="card mt-2 rounded-0 border-0" id="comment-block">
@@ -137,6 +146,28 @@
                 POWERMODE.shake = false;
                 document.body.addEventListener('input', POWERMODE)
             }
+        </script>
+    {% endif %}
+
+    {% if not request.session.liked %}
+        <script type="text/javascript">
+            $("#like").click(function () {
+                    console.log(sessionStorage.getItem('liked'))
+                    $.ajax({
+                        url: "{{ article.get_absolute_url }}" + "add_like/",
+                        type: "get",
+
+                        success: function (data) {
+                            const likes = document.getElementById("likes").innerText = data['likes'];
+                            console.log(likes)
+                            console.log("{{ request.session.liked }}")
+                        },
+                        error: function (data) {
+                            console.log(data)
+                        }
+                    })
+                }
+            )
         </script>
     {% endif %}
 {% endblock %}

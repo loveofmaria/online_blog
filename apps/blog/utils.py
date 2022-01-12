@@ -4,6 +4,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.conf import settings
 
 
+
 def site_protocol():
     '''
     返回当前使用的协议 http|https，可以给很多需要用到网站完整地址的地方调用
