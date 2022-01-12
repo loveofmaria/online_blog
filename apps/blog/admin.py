@@ -14,15 +14,15 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ('views',)
 
     # 在查看修改的时候显示的属性，第一个字段带有<a>标签，所以最好放标题
-    list_display = ('id', 'title', 'create_date', 'update_date', 'is_top')
+    list_display = ('id', 'title', 'create_date', 'update_date', 'is_top', 'visitable')
 
     # 设置需要添加<a>标签的字段
     list_display_links = ('title',)
 
     # 激活过滤器，这个很有用
-    list_filter = ('create_date', 'category', 'is_top')
+    list_filter = ('create_date', 'category', 'is_top', 'visitable')
 
-    list_per_page = 50  # 控制每页显示的对象数量，默认是100
+    list_per_page = 20  # 控制每页显示的对象数量，默认是100
 
     filter_horizontal = ('tags', 'keywords')  # 给多选增加一个左右添加的框
 
@@ -44,10 +44,10 @@ class ArticleAdmin(admin.ModelAdmin):
                 kwargs['queryset'] = User.objects.filter(id=request.user.id)
         return super(ArticleAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-    def save_model(self, request, obj, form, change):
-        if not obj.id:
-            obj.author = request.user
-            obj.save()
+    # def save_model(self, request, obj, form, change):
+    #     if not obj.id:
+    #         obj.author = request.user
+    #         obj.save()
 
 
 @admin.register(Tag)
@@ -104,9 +104,9 @@ class AboutBlogAdmin(admin.ModelAdmin):
     list_display = ('short_body', 'create_date', 'update_date')
 
     def short_body(self, obj):
-        return '自由编辑 About 页面的内容，支持 markdown 语法。'
+        return '用以表达心境的一篇散文。'
 
-    short_body.short_description = 'AboutBlog'
+    short_body.short_description = '散文'
 
     # 限制用户权限，只能超管可以编辑
     def get_queryset(self, request):

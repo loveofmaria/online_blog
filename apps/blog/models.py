@@ -7,6 +7,11 @@ import re
 
 # Create your models here.
 
+class ArticleManager(models.Manager):
+    def get_queryset(self):
+        return super(ArticleManager, self).get_queryset().filter(visitable=True)
+
+
 # 文章关键词，用来作为SEO中keywords
 class Keyword(models.Model):
     name = models.CharField('文章关键词', max_length=20)
@@ -76,7 +81,7 @@ class Article(models.Model):
     img_link = models.CharField('图片地址', default=IMG_LINK, max_length=255)
     create_date = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     update_date = models.DateTimeField(verbose_name='修改时间', auto_now=True)
-    views = models.IntegerField('阅览量', default=0)
+    views = models.PositiveSmallIntegerField('阅览量', default=0)
     slug = models.SlugField(unique=True)
     is_top = models.BooleanField('置顶', default=False)
 
@@ -84,6 +89,9 @@ class Article(models.Model):
     tags = models.ManyToManyField(Tag, verbose_name='标签')
     keywords = models.ManyToManyField(Keyword, verbose_name='文章关键词',
                                       help_text='文章关键词，用来作为SEO中keywords，最好使用长尾词，3-4个足够')
+    visitable = models.BooleanField('显示', default=True)
+    likes = models.PositiveSmallIntegerField('点赞数', default=0)
+    objects = ArticleManager()
 
     class Meta:
         verbose_name = '文章'
@@ -106,11 +114,18 @@ class Article(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+    def update_likes(self):
+        self.likes += 1
+        self.save(update_fields=['likes'])
+
     def get_pre(self):
         return Article.objects.filter(id__lt=self.id).order_by('-id').first()
 
     def get_next(self):
         return Article.objects.filter(id__gt=self.id).order_by('id').first()
+
+    def save(self, *args, **kwargs):
+        super(Article, self).save(*args, **kwargs)
 
 
 # 时间线
