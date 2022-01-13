@@ -42,7 +42,7 @@ class IndexView(generic.ListView):
     def get_ordering(self):
         sort = self.kwargs.get('sort')
         if sort == 'v':
-            return ('-views', '-update_date', '-id')
+            return ('-likes', '-update_date', '-id')
         return ('-is_top', '-create_date')
 
 
@@ -218,6 +218,8 @@ def ajax_add_like(request, slug):
             request_obj.liked_articles.add(article)
             request_obj.save()
             request.session['liked'] = 'liked'
+
+    # else:
 
     likes = {
         'likes': article.likes,

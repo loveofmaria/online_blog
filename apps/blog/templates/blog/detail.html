@@ -170,5 +170,12 @@
                 }
             )
         </script>
+    {% else %}
+        <script type="text/javascript">
+            $("#like").click(function () {
+                    alert("你已经点过赞啦 >_> !!!")
+                }
+            )
+        </script>
     {% endif %}
 {% endblock %}
