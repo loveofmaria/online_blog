@@ -220,9 +220,7 @@ def ajax_add_like(request, slug):
             request.session['liked'] = 'liked'
 
     # else:
-
     likes = {
         'likes': article.likes,
     }
-    print(request.session.get('liked'))
     return JsonResponse(likes)
