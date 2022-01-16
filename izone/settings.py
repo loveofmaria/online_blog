@@ -244,18 +244,21 @@ DATABASES = {
 # REDIS_HOST = os.getenv('IZONE_REDIS_HOST')
 # REDIS_PORT = os.getenv('IZONE_REDIS_PORT')
 
-CACHES = {
-    "default": {
-        # "BACKEND": "django_redis.cache.RedisCache",
-        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
-        # "LOCATION": "redis://{}:{}".format(REDIS_HOST, REDIS_PORT),
-        "LOCATION": "cache_table",
-        # "OPTIONS": {
-        #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        # }
-        'TIME_OUT': 60 * 60 * 24,
+if DEBUG:
+    pass
+else:
+    CACHES = {
+        "default": {
+            # "BACKEND": "django_redis.cache.RedisCache",
+            "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+            # "LOCATION": "redis://{}:{}".format(REDIS_HOST, REDIS_PORT),
+            "LOCATION": "cache_table",
+            # "OPTIONS": {
+            #     "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # }
+            'TIME_OUT': 60 * 60 * 60 * 24,
+        }
     }
-}
 
 # 配置管理邮箱，服务出现故障会收到到邮件，环境变量值的格式：name|test@test.com 多组用户用英文逗号隔开
 ADMINS = []

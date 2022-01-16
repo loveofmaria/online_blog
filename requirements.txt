@@ -38,4 +38,3 @@ Whoosh==2.7.4
 django-tctip>=1.4.0
 
 python-dotenv~=0.19.2
-geoip2~=4.5.0
