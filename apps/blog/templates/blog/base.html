@@ -44,19 +44,19 @@
 <!--消息块-->
 {% if messages %}
     <div class="container">
-    {% for message in messages %}
-{#        <div class="text-center alert {% if message.tags %}alert-#}
-{#                            {{ message.tags }}{% else %}alert-primary{% endif %} alert-dismissible rounded-0 fade show"#}
-{#             role="alert">#}
-        <div class="text-center alert alert-{{ message.tags }} alert-dismissible rounded-0 fade show"
-             role="alert">
-            <i class="fa fa-info-circle"></i> {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endfor %}
-</div>
+        {% for message in messages %}
+            {#        <div class="text-center alert {% if message.tags %}alert-#}
+            {#                            {{ message.tags }}{% else %}alert-primary{% endif %} alert-dismissible rounded-0 fade show"#}
+            {#             role="alert">#}
+            <div class="text-center alert alert-{{ message.tags }} alert-dismissible rounded-0 fade show"
+                 role="alert">
+                <i class="fa fa-info-circle"></i> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
 
 <!--回到顶部按钮-->
@@ -123,6 +123,10 @@
         }
 
         getnewYear()</script>
+        <script>
+            // 消息提示框自动关闭
+            $('.alert').delay(5000).fadeOut();
+        </script>
     </div>
 </footer>
 </body>
