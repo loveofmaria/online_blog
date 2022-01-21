@@ -4,20 +4,19 @@ from django.utils.text import slugify
 from django.views import generic
 from django.conf import settings
 
-from utils.utils import get_ip_addr_from_meta, parse_user_agent, getLocation
 from .models import Article, Tag, Category, Timeline, Silian, AboutBlog
 from .utils import site_full_url
 from django.core.cache import cache
 
 from markdown.extensions.toc import TocExtension  # 锚点的拓展
 import markdown
-import time, datetime
+import time
 
 from haystack.generic_views import SearchView  # 导入搜索视图
 from haystack.query import SearchQuerySet
 
+
 # Create your views here.
-from analyze.models import RequestRecord
 
 
 def goview(request):
@@ -185,41 +184,22 @@ def robots(request):
 # 文章点赞
 def ajax_add_like(request, slug):
     """
-    ip = models.CharField(verbose_name='IP 地址', max_length=30, editable=False)
-    location = models.CharField(verbose_name='IP 地理位置', max_length=30, editable=False)
-    os_info = models.CharField(verbose_name='系统', max_length=16, editable=False)
-    browser = models.CharField(verbose_name='浏览器', max_length=128, editable=False)
-    liked_articles = models.ManyToManyField(Article, verbose_name='点赞的文章', related_query_name='articles_liked',
-                                            editable=False)
+    最简单的一个方式，仅仅通过session来限制匿名
     """
     article = Article.objects.all().filter(slug=slug).first()
+    liked_articles = request.session.get('liked', None)
 
-    if not request.session.get('liked'):
-
-        ip_addr = get_ip_addr_from_meta(request)
-        location = getLocation(ip_addr)
-        if location == '':
-            location = '局域网'
-        platform_info = parse_user_agent(request)[1]
-        browser_info = parse_user_agent(request)[2]
-
-        request_obj = RequestRecord.objects.filter(ip=ip_addr).filter(location=location).filter(os_info=platform_info) \
-            .first()
-
-        if not request_obj or article not in request_obj.liked_articles.all():
-            request_obj = RequestRecord(
-                location=location,
-                ip=ip_addr,
-                os_info=platform_info,
-                browser=browser_info,
-            )
+    if request.session.get('liked', None):
+        liked_articles = eval(liked_articles)
+        if article.id not in liked_articles:
+            liked_articles.append(article.id)
+            request.session['liked'] = str(liked_articles)
             article.update_likes()
-            request_obj.save()
-            request_obj.liked_articles.add(article)
-            request_obj.save()
-            request.session['liked'] = 'liked'
+    else:
+        liked_articles = []
+        request.session['liked'] = str(liked_articles.append(article.id))
+        article.update_likes()
 
-    # else:
     likes = {
         'likes': article.likes,
     }

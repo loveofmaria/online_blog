@@ -9,8 +9,9 @@ class RequestRecord(models.Model):
     location = models.CharField(verbose_name='IP 地理位置', max_length=30, editable=False)
     os_info = models.CharField(verbose_name='系统', max_length=16, editable=False)
     browser = models.CharField(verbose_name='浏览器', max_length=128, editable=False)
-    liked_articles = models.ManyToManyField(Article, verbose_name='点赞的文章', related_query_name='articles_liked',
-                                            editable=False)
+    # liked_articles = models.ManyToManyField(Article, verbose_name='点赞的文章', related_query_name='articles_liked',
+    #                                         editable=False)
+    access_time = models.DateTimeField('访问时间', auto_now=True)
 
     class Meta:
         verbose_name = '访问记录'
@@ -19,9 +20,9 @@ class RequestRecord(models.Model):
     def __str__(self):
         return "[IP: %s  地址: %s]" % (self.ip, self.location)
 
-    def update_articles(self, article, *args, **kwargs):
-        self.liked_articles.add(article)
-        self.save(update_fields=['liked_articles'])
+    # def update_articles(self, article, *args, **kwargs):
+    #     self.liked_articles.add(article)
+    #     self.save(update_fields=['liked_articles'])
 
 # # 网站总访问次数
 # class VisitNumber(models.Model):

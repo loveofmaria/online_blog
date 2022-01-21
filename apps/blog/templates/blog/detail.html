@@ -44,7 +44,7 @@
                         <span class="mx-2" data-toggle="tooltip" data-placement="bottom"
                               title="最后编辑于{{ article.update_date|date:'Y年m月d日' }}"><i
                                 class="fa fa-calendar"></i> {{ article.create_date }}</span>
-                            <span class="mx-2"><i class="fa fa-eye"></i> {{ article.views }}</span>
+                            <span class="mx-2"><i class="fa fa-eye"></i></span><span id="likes"> {{ article.views }}</span>
                             <a class="mx-2 to-com" href="#comment-block"><i
                                     class="fa fa-comments"></i> {% get_comment_count article %}</a>
                             <span class="mx-2"><i class="fa fa-thumbs-o-up"></i> {{ article.likes }}</span>
@@ -150,32 +150,23 @@
         </script>
     {% endif %}
 
-    {% if not request.session.liked %}
-        <script type="text/javascript">
-            $("#like").click(function () {
-                    console.log(sessionStorage.getItem('liked'))
-                    $.ajax({
-                        url: "{{ article.get_absolute_url }}" + "add_like/",
-                        type: "get",
 
-                        success: function (data) {
-                            const likes = document.getElementById("likes").innerText = data['likes'];
-                            console.log(likes)
-                            console.log("{{ request.session.liked }}")
-                        },
-                        error: function (data) {
-                            console.log(data)
-                        }
-                    })
-                }
-            )
-        </script>
-    {% else %}
-        <script type="text/javascript">
-            $("#like").click(function () {
-                    alert("你已经点过赞啦 >_> !!!")
-                }
-            )
-        </script>
-    {% endif %}
+    <script type="text/javascript">
+        $("#like").click(function () {
+                console.log(sessionStorage.getItem('liked'))
+                $.ajax({
+                    url: "{{ article.get_absolute_url }}" + "add_like/",
+                    type: "get",
+
+                    success: function (data) {
+                        const likes = document.getElementById("likes").innerText = data['likes'];
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                })
+            }
+        )
+    </script>
 {% endblock %}
+

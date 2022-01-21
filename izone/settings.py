@@ -244,6 +244,11 @@ DATABASES = {
 # REDIS_HOST = os.getenv('IZONE_REDIS_HOST')
 # REDIS_PORT = os.getenv('IZONE_REDIS_PORT')
 
+# session 设置
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
+
+# 缓存
 if DEBUG:
     pass
 else:
