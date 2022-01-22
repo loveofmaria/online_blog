@@ -1,17 +1,13 @@
 from django.db import models
 
+
 # 访问网站的 ip 地址、端点和次数
-from blog.models import Article
-
-
 class RequestRecord(models.Model):
     ip = models.CharField(verbose_name='IP 地址', max_length=30, editable=False)
     location = models.CharField(verbose_name='IP 地理位置', max_length=30, editable=False)
     os_info = models.CharField(verbose_name='系统', max_length=16, editable=False)
     browser = models.CharField(verbose_name='浏览器', max_length=128, editable=False)
-    # liked_articles = models.ManyToManyField(Article, verbose_name='点赞的文章', related_query_name='articles_liked',
-    #                                         editable=False)
-    access_time = models.DateTimeField('访问时间', auto_now=True)
+    access_time = models.DateTimeField('访问时间', auto_now_add=True, editable=False)
 
     class Meta:
         verbose_name = '访问记录'

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django import template
 
-from utils.utils import get_ip_addr_from_meta, getLocation, parse_user_agent
+from utils.utils import getRealIp, getLocation, parse_user_agent
 from ..models import Article, Category, Tag, Carousel, FriendLink
 from django.db.models.aggregates import Count
 from django.utils.html import mark_safe
@@ -118,7 +118,7 @@ def now_hour():
 @register.inclusion_tag('blog/tags/_right_click_info.html', takes_context=True)
 def show_right_click_info(context):
     request = context['request']
-    ip_addr = get_ip_addr_from_meta(request)
+    ip_addr = getRealIp(request)
     location = getLocation(ip_addr)
     if location == '':
         location = '局域网'

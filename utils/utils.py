@@ -74,14 +74,6 @@ def parse_user_agent(request):
     return str(user_agent).split('/')
 
 
-def get_ip_addr_from_meta(request):
-    if 'HTTP_X_FORWARDED_FOR' in request.META:
-        ip_addr = request.META.get('HTTP_X_FORWARDED_FOR')
-    else:
-        ip_addr = request.META.get('REMOTE_ADDR')
-    return ip_addr
-
-
 def isEmoji(content):
     """
     判断内容是否是emoji
