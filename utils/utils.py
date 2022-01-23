@@ -40,14 +40,14 @@ def getLocation(ip):
     location = ''
     try:
         reader = geoip2.database.Reader(os.path.join(file_path, 'GeoLite2-City.mmdb'))
-        response = reader.city(ip)
+        res = reader.city(ip)
         try:
-            subdivisions = response.subdivisions.most_specific.names['zh-CN']
+            subdivisions = res.subdivisions.most_specific.names['zh-CN']
         except KeyError:
             subdivisions = ''
-        country = response.country.names['zh-CN']
+        country = res.country.names['zh-CN']
         try:
-            city = response.city.names['zh-CN']
+            city = res.city.names['zh-CN']
             if city in cities:
                 city = ''
         except KeyError:
@@ -90,4 +90,3 @@ def isEmoji(content):
         return True
     else:
         return False
-

@@ -119,6 +119,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
+    'middleware.requestRecordMiddleware.RequestRecordMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,7 +127,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middleware.requestRecordMiddleware.RequestRecordMiddleware',
 ]
 
 ROOT_URLCONF = 'izone.urls'
